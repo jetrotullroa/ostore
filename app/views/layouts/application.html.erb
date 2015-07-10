@@ -8,7 +8,12 @@
 </head>
 <body>
 
+<%= link_to "Home", root_path %>
+<%= link_to "About Us", pages_about_path %>
+<%= link_to "Contact Us", pages_contact_path %>
+
 <%= yield %>
 
+<p>Copyright <%= Time.zone.now.year %></p>
 </body>
 </html>

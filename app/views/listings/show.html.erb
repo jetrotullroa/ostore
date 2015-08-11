@@ -1,19 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @listing.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @listing.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @listing.price %>
-</p>
-
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Back', listings_path %>
+<div class="row">
+  <div class="col-md-5">
+      <div class="thumbnail">
+      <%= image_tag @listing.image.url %>
+      </div>
+  </div>
+  <div class="col-md-7">
+      <h1><%= @listing.name %></h1>
+      <p>
+        <%= @listing.description %>
+      </p>
+      <p>
+        <strong>
+            Price : <%= number_to_currency(@listing.price) %>
+        </strong>
+      </p>
+      <p>
+        <%= link_to 'Edit', edit_listing_path(@listing),
+                            class: "btn btn-link" %> |
+        <%= link_to 'Back', listings_path, class: "btn btn-link" %>
+      </p>
+  </div>
+</div>

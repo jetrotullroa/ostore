@@ -14,7 +14,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'paperclip', '~> 4.3.0'
 
 group :production do
-  gem 'pg'
+  gem 'pg', '~> 0.18.2'
   gem 'rails_12factor'
 end
 

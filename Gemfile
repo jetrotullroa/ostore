@@ -12,6 +12,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'paperclip', '~> 4.3.0'
+gem "paperclip-dropbox", ">= 1.1.7"
+gem "figaro"
+
 
 group :production do
   gem 'pg', '~> 0.18.2'

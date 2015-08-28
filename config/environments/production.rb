@@ -75,5 +75,8 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
+  config.active_record.dump_schema_after_migration = false  
+
+  # Added for devise need to change with actual host
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end

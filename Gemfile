@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby "2.2.0"
 
-
 gem 'rails', '4.2.3'
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sass-rails', '~> 5.0'
@@ -14,6 +13,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'paperclip', '~> 4.3.0'
 gem "paperclip-dropbox", ">= 1.1.7"
 gem "figaro"
+gem 'devise'
 
 
 group :production do
@@ -25,9 +25,12 @@ group :development do
   gem 'sqlite3'
 end
 
-
 group :development, :test do
   gem 'byebug'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'guard-rspec'
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end

@@ -1,0 +1,30 @@
+  <% if user_signed_in? %>
+    <p><%= link_to 'Add New Product', new_listing_path, class: "btn btn-primary" %></p>
+  <% end %>
+
+<div class="center">
+  <div class="row">
+    <% @listings.each do |listing| %>
+    <div class="col-md-3">
+      <div class="thumbnail">
+        <%= link_to image_tag(listing.image.url), listing %>
+        <div class="caption">
+          <h1><%= listing.name %></h1>
+          <p><strong>
+            Price : <%= number_to_currency(listing.price) %>
+          </strong></p>
+          <p><%= "Sold By : #{listing.user.name}" %></p>
+            <% if (user_signed_in?) && (current_user == listing.user) %>
+              <%= link_to 'Edit', edit_listing_path(listing),
+                                          class: "btn btn-link" %> |
+              <%= link_to 'Delete', listing, method: :delete, data:
+                                          { confirm: 'Are you sure?' },
+                                          class: "btn btn-link" %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

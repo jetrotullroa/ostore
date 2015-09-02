@@ -5,8 +5,12 @@ class ListingsController < ApplicationController
 
   # GET /listings
   # GET /listings.json
+  def seller
+    @listings = Listing.where(user: current_user).order("created_at DESC")
+  end
+
   def index
-    @listings = Listing.all
+    @listings = Listing.all.order("created_at DESC")
   end
 
   # GET /listings/1
@@ -23,20 +27,14 @@ class ListingsController < ApplicationController
   def edit
   end
 
-  # POST /listings
-  # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
     @listing.user_id = current_user.id
 
-    respond_to do |format|
-      if @listing.save
-        format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
-        format.json { render :show, status: :created, location: @listing }
-      else
-        format.html { render :new }
-        format.json { render json: @listing.errors, status: :unprocessable_entity }
-      end
+    if @listing.save
+      redirect_to @listing, notice: 'Listing was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -45,11 +43,9 @@ class ListingsController < ApplicationController
   def update
     respond_to do |format|
       if @listing.update(listing_params)
-        format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
-        format.json { render :show, status: :ok, location: @listing }
+        redirect_to @listing, notice: 'Listing was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @listing.errors, status: :unprocessable_entity }
+        render :edit
       end
     end
   end
@@ -59,8 +55,8 @@ class ListingsController < ApplicationController
   def destroy
     @listing.destroy
     respond_to do |format|
-      format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
-      format.json { head :no_content }
+      redirect_to listings_url, notice: 'Listing was successfully destroyed.'
+      head :no_content
     end
   end
 

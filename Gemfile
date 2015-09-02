@@ -17,6 +17,7 @@ gem 'devise'
 
 
 group :production do
+  gem 'unicorn'
   gem 'pg', '~> 0.18.2'
   gem 'rails_12factor'
 end

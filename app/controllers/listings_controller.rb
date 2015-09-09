@@ -8,9 +8,9 @@ class ListingsController < ApplicationController
   def seller
     @listings = Listing.where(user: current_user).order("created_at DESC")
   end
-
+  
   def index
-    @listings = Listing.all.order("created_at DESC")
+    @listings = Listing.all
   end
 
   # GET /listings/1
@@ -27,14 +27,20 @@ class ListingsController < ApplicationController
   def edit
   end
 
+  # POST /listings
+  # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
     @listing.user_id = current_user.id
 
-    if @listing.save
-      redirect_to @listing, notice: 'Listing was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @listing.save
+        format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
+        format.json { render :show, status: :created, location: @listing }
+      else
+        format.html { render :new }
+        format.json { render json: @listing.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -43,9 +49,9 @@ class ListingsController < ApplicationController
   def update
     respond_to do |format|
       if @listing.update(listing_params)
-        redirect_to @listing, notice: 'Listing was successfully updated.'
+        format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
       else
-        render :edit
+        format.html { render :edit }
       end
     end
   end
@@ -55,8 +61,7 @@ class ListingsController < ApplicationController
   def destroy
     @listing.destroy
     respond_to do |format|
-      redirect_to listings_url, notice: 'Listing was successfully destroyed.'
-      head :no_content
+      format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
     end
   end
 

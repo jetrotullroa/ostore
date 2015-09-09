@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'pages/contact'
 
+  get 'seller' => 'listings#seller'
+
   root 'listings#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

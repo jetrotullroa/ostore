@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <div class="center">
   <div class="row">
     <% @listings.each do |listing| %>
@@ -12,13 +10,6 @@
             Price : <%= number_to_currency(listing.price) %>
           </strong></p>
           <p><%= "Sold By : #{listing.user.name}" %></p>
-            <% if (user_signed_in?) && (current_user == listing.user) %>
-              <%= link_to 'Edit', edit_listing_path(listing),
-                                          class: "btn btn-link" %> |
-              <%= link_to 'Delete', listing, method: :delete, data:
-                                          { confirm: 'Are you sure?' },
-                                          class: "btn btn-link" %>
-            <% end %>
           </p>
         </div>
       </div>
@@ -26,7 +17,3 @@
     <% end %>
   </div>
 </div>
-
-<% if user_signed_in? %>
-  <%= link_to 'New Listing', new_listing_path, class: "btn btn-primary" %>
-<% end %>

@@ -5,6 +5,10 @@ class ListingsController < ApplicationController
 
   # GET /listings
   # GET /listings.json
+  def seller
+    @listings = Listing.where(user: current_user).order("created_at DESC")
+  end
+  
   def index
     @listings = Listing.all
   end
@@ -46,10 +50,8 @@ class ListingsController < ApplicationController
     respond_to do |format|
       if @listing.update(listing_params)
         format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
-        format.json { render :show, status: :ok, location: @listing }
       else
         format.html { render :edit }
-        format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -60,7 +62,6 @@ class ListingsController < ApplicationController
     @listing.destroy
     respond_to do |format|
       format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

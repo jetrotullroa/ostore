@@ -14,6 +14,10 @@
             Price : <%= number_to_currency(@listing.price) %>
         </strong>
       </p>
+      <div class="center">
+          <%= link_to "Buy It Now", new_listing_order_path(@listing), class: "btn btn-primary" %>
+      </div>
+
       <p>
         <% if current_user == @listing.user %>
           <%= link_to 'Edit', edit_listing_path(@listing),

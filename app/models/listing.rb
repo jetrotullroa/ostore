@@ -8,7 +8,7 @@ class Listing < ActiveRecord::Base
       :thumb => "100x100>" }, :default_url => "noimage.jpg",
       :storage => :dropbox,
       :dropbox_credentials => Rails.root.join("config/dropbox.yml")
-      validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/,
+    validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/,
       :path => ":style/:id_:filename"
   end
 
@@ -17,4 +17,5 @@ class Listing < ActiveRecord::Base
   validates_attachment_presence :image
 
   belongs_to :user
+  has_many :orders
 end

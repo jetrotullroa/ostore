@@ -8,7 +8,7 @@ class ListingsController < ApplicationController
   def seller
     @listings = Listing.where(user: current_user).order("created_at DESC")
   end
-  
+
   def index
     @listings = Listing.all
   end
@@ -33,6 +33,20 @@ class ListingsController < ApplicationController
     @listing = Listing.new(listing_params)
     @listing.user_id = current_user.id
 
+    if current_user.recepient.blank?
+      Stripe.api_key = ENV["STRIPE_API_KEY"]
+      token = params[:stripeToken]
+
+      recepient = Stripe::Recipient.create(
+        :name => current_user.name,
+        :type => "individual",
+        :bank_account => token
+        )
+
+      current_user.recepient = recepient.id
+      current_user.save
+    end
+
     respond_to do |format|
       if @listing.save
         format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
@@ -43,6 +57,7 @@ class ListingsController < ApplicationController
       end
     end
   end
+
 
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json

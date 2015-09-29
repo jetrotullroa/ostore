@@ -13,6 +13,10 @@
     </div>
   <% end %>
 
+<div id="stripe_error" class="alert alert-danger" style="display:none">
+  <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+</div>
+
   <div class="form-group">
     <%= f.label :name %><br>
     <%= f.text_field :name, class: "form-control" %>
@@ -29,7 +33,26 @@
     <%= f.label :image %><br>
     <%= f.file_field :image %>
   </div>
+
+  <% if current_user.recepient.blank? %>
+    <h1>Bank Account Information</h1>
+
+    <div class="form-group">
+      <%= label_tag :country %>
+      <%= text_field_tag :country, nil, { :name => nil, :'data-stripe' => "country", class: "form-control" } %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :routing_number %>
+      <%= text_field_tag :routing_number, nil, { :name => nil, :'data-stripe' => "routingNumber", class: "form-control" } %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :account_number %>
+      <%= text_field_tag :account_number, nil, { :name => nil, :'data-stripe' => "accountNumber", class: "form-control" } %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>
   </div>
+
 <% end %>

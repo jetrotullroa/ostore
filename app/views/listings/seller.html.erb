@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <p><%= link_to 'Add New Product', new_listing_path, class: "btn btn-primary" %></p>
+  <p><%= link_to 'Add New Product', new_listing_path, class: "btn btn-primary", data: { no_turbolink: true } %></p>
 <% end %>
 
 <table class="table table-striped table-bordered">
